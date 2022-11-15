@@ -9,7 +9,7 @@ namespace Yard_Scan_API.Data.Entities
         [Required]
         [StringLength(50)]
         public string Name { get; set; } = string.Empty;
-        
+
         [StringLength(50)]
         public string subName { get; set; } = string.Empty;
 
@@ -19,6 +19,7 @@ namespace Yard_Scan_API.Data.Entities
         public int Spaces { get; set; }
 
         public Boolean Status { get; set; }
+        public double UsagePercentage { get; private set; }
 
         public ICollection<Unit> Units { get; set; }
     }

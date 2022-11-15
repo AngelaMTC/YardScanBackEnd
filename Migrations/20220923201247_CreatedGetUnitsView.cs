@@ -19,8 +19,8 @@ namespace Yard_Scan_API.Migrations
                     yu.TrackInDate as [TrackInDate],
                     yu.TrackOutDate as [TrackOutDate],
                     yu.Comment as [Comment]
-                from OnYardCOMPAS.dbo.Units yu
-                join InspectCOMPASTest.dbo.units u on u.unit_id = yu.UnitId";
+                from OnYardCOMPASTest.dbo.Units yu
+                join InspectCOMPAS.dbo.units u on u.unit_id = yu.UnitId";
 
             migrationBuilder.Sql(sql);
         }

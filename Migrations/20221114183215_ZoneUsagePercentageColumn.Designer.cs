@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Yard_Scan_API.Data.Context;
 
@@ -11,9 +12,10 @@ using Yard_Scan_API.Data.Context;
 namespace Yard_Scan_API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221114183215_ZoneUsagePercentageColumn")]
+    partial class ZoneUsagePercentageColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,11 +42,6 @@ namespace Yard_Scan_API.Migrations
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
-
-                    b.Property<double>("UsagePercentage")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("float")
-                        .HasComputedColumnSql("dbo.subzone_usage_percentage([Id], [Spaces])");
 
                     b.Property<int>("ZoneId")
                         .HasColumnType("int");

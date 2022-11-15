@@ -9,6 +9,6 @@ namespace Yard_Scan_API.Dtos.Zone
         [Required]
         public string Name { get; set; } = string.Empty;
         public Boolean Status { get; set; }
-
+        public double UsagePercentage { get; set; }
     }
 }

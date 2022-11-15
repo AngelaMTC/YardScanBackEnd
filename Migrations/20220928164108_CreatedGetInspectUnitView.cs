@@ -13,7 +13,7 @@ namespace Yard_Scan_API.Migrations
                 select
                     u.unit_id as [UnitId],
                     u.serial as [Serial]
-                from InspectCOMPASTest.dbo.units u";
+                from InspectCOMPAS.dbo.units u";
 
             migrationBuilder.Sql(sql);
         }

@@ -10,8 +10,10 @@ namespace Yard_Scan_API.Data.Entities
         [StringLength(50)]
         public string Name { get; set; } = string.Empty;
 
-        public Boolean Status { get; set; }
+        public bool Status { get; set; }
 
+
+        public double UsagePercentage { get; private set; }
 
 
         public ICollection<SubZone> SubZones { get; set; }

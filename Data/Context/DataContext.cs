@@ -50,12 +50,20 @@
                         Id = 5,
                         Name = "Avenida",
                         Status = false
-                    }); ;
+                    });
+
+            modelBuilder.Entity<Zone>()
+                .Property(z => z.UsagePercentage)
+                .HasComputedColumnSql("dbo.zone_usage_percentage([Id])");
 
             // SubZones
             modelBuilder.Entity<SubZone>()
                 .HasOne(s => s.Zone)
                 .WithMany(z => z.SubZones);
+
+            modelBuilder.Entity<SubZone>()
+                .Property(s => s.UsagePercentage)
+                .HasComputedColumnSql("dbo.subzone_usage_percentage([Id], [Spaces])");
 
             modelBuilder.Entity<SubZone>()
                 .HasData(

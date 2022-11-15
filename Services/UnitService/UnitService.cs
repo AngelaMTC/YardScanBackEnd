@@ -179,5 +179,10 @@ namespace Yard_Scan_API.Services.UnitService
 
             return response;
         }
+
+        public Task<ServiceResponse<List<GetUnitDto>>> MultipleUnitTrackIn(TrackInUnitDto newTrackInUnit)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
