@@ -11,5 +11,12 @@
         public string TrackInDate { get; set; }
         public string TrackOutDate { get; set; }
         public string Comment { get; set; }
+        public string? OfflineDate { get; set; }
+        public string? Destination { get; set; }
+        public string? Color { get; set; }
+        public string? OpenDefects { get; set; }
+        public string? Part { get; set; }
+        public string? ETA { get; set; }
+        public bool Status { get; set; }
     }
 }

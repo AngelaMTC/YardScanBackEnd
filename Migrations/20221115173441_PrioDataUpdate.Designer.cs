@@ -12,8 +12,8 @@ using Yard_Scan_API.Data.Context;
 namespace Yard_Scan_API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221111182613_GetCapacityandTrackOutSubZoneView")]
-    partial class GetCapacityandTrackOutSubZoneView
+    [Migration("20221115173441_PrioDataUpdate")]
+    partial class PrioDataUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,6 +42,11 @@ namespace Yard_Scan_API.Migrations
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
+
+                    b.Property<double>("UsagePercentage")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("float")
+                        .HasComputedColumnSql("dbo.subzone_usage_percentage([Id], [Spaces])");
 
                     b.Property<int>("ZoneId")
                         .HasColumnType("int");
@@ -104,7 +109,25 @@ namespace Yard_Scan_API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Destination")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ETA")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OfflineDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OpenDefects")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Part")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Space")
@@ -150,6 +173,11 @@ namespace Yard_Scan_API.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
+                    b.Property<double>("UsagePercentage")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("float")
+                        .HasComputedColumnSql("dbo.zone_usage_percentage([Id])");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
@@ -162,31 +190,36 @@ namespace Yard_Scan_API.Migrations
                         {
                             Id = 1,
                             Name = "C4",
-                            Status = false
+                            Status = false,
+                            UsagePercentage = 0.0
                         },
                         new
                         {
                             Id = 2,
                             Name = "Corralito",
-                            Status = false
+                            Status = false,
+                            UsagePercentage = 0.0
                         },
                         new
                         {
                             Id = 3,
                             Name = "Yarda",
-                            Status = false
+                            Status = false,
+                            UsagePercentage = 0.0
                         },
                         new
                         {
                             Id = 4,
                             Name = "Campañas",
-                            Status = false
+                            Status = false,
+                            UsagePercentage = 0.0
                         },
                         new
                         {
                             Id = 5,
                             Name = "Avenida",
-                            Status = false
+                            Status = false,
+                            UsagePercentage = 0.0
                         });
                 });
 

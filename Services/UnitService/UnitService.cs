@@ -170,6 +170,30 @@ namespace Yard_Scan_API.Services.UnitService
             return response;
         }
 
+        public async Task<ServiceResponse<GetUnitDto>> UpdateStatusUnit(int id, UpdateStatusUnitDto updatedSUnit)
+        {
+            var response = new ServiceResponse<GetUnitDto>();
+
+            try
+            {
+                var unitEntity = await _context.Units
+                    .FirstOrDefaultAsync(z => z.Id == id);
+
+                var Unit = _mapper.Map(updatedSUnit, unitEntity);
+
+                await _context.SaveChangesAsync();
+
+                response.Data = _mapper.Map<GetUnitDto>(unitEntity);
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+            }
+
+            return response;
+        }
+
         public async Task<ServiceResponse<GetUnitDto>> GetUnitById(int id)
         {
             var response = new ServiceResponse<GetUnitDto>();

@@ -39,6 +39,21 @@ namespace Yard_Scan_API.Controllers
 
         }
 
+        [HttpPut("Status/{UnitId}")]
+        public async Task<ActionResult<ServiceResponse<GetZoneDto>>> UpdateStatusUnitDto(
+              UpdateStatusUnitDto updatedSUnit, int UnitId)
+        {
+            var response = await _unitService.UpdateStatusUnit(UnitId, updatedSUnit);
+
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+
+            return Ok(response);
+
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetUnitDto>>> GetSingle(int id) => Ok(await _unitService.GetUnitById(id));
 

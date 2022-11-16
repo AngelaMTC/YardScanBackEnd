@@ -9,6 +9,7 @@
             CreateMap<TrackInUnitDto, Unit>();
             CreateMap<TrackOutUnitDto, Unit>();
             CreateMap<UpdateCommentUnitDto, Unit>();
+            CreateMap<UpdateStatusUnitDto, Unit>();
 
         }
     }

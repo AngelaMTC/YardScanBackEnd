@@ -12,8 +12,8 @@ using Yard_Scan_API.Data.Context;
 namespace Yard_Scan_API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221115211419_UpdateDB")]
-    partial class UpdateDB
+    [Migration("20221115182941_UnitStatus")]
+    partial class UnitStatus
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -109,11 +109,32 @@ namespace Yard_Scan_API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Destination")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ETA")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OfflineDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OpenDefects")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Part")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Space")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.Property<int>("SubZoneId")
                         .HasColumnType("int");
