@@ -127,8 +127,6 @@ namespace Yard_Scan_API.Services.UnitService
                 }
                 else
                 {
-                    unit.ZoneId = 99;
-                    unit.SubZoneId = 99;
                     unit.Space = null;
                     unit.TrackOutDate = DateTime.Now;
 
