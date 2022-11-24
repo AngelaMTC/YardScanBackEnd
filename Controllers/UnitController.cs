@@ -24,11 +24,11 @@ namespace Yard_Scan_API.Controllers
         [HttpPut("TrackOut")]
         public async Task<ActionResult> UnitTrackOut(TrackOutUnitDto trackOutUnit) => Ok(await _unitService.UnitTrackOut(trackOutUnit));
 
-        [HttpPut("{Id}")]
+        [HttpPut("Comment/{UnitId}")]
         public async Task<ActionResult<ServiceResponse<GetZoneDto>>> UpdateCommentUnitDto(
-              UpdateCommentUnitDto updatedUnit, int id)
+              UpdateCommentUnitDto updatedUnit, int UnitId)
         {
-            var response = await _unitService.UpdateCommentUnit(id, updatedUnit);
+            var response = await _unitService.UpdateCommentUnit(UnitId, updatedUnit);
 
             if (response.Data == null)
             {
@@ -57,5 +57,10 @@ namespace Yard_Scan_API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetUnitDto>>> GetSingle(int id) => Ok(await _unitService.GetUnitById(id));
 
+        [HttpPost("MultipleTrackIn")]
+        public async Task<ActionResult> MultipleUnitTrackIn(TrackInUnitDto[] trackInUnits) => Ok(await _unitService.MultipleUnitTrackIn(trackInUnits));
+
+        [HttpPut("MultipleTrackOut")]
+        public async Task<ActionResult> MultipleUnitTrackOut(int trackOutType, int id) => Ok(await _unitService.MultipleUnitTrackOut(trackOutType, id));
     }
 }

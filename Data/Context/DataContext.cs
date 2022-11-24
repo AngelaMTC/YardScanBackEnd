@@ -24,7 +24,7 @@
                     new Zone
                     {
                         Id = 1,
-                        Name = "C4",
+                        Name = "TrackOut",
                         Status = false
                     },
                     new Zone
@@ -70,7 +70,7 @@
                 new
                 {
                     Id = 1,
-                    Name = "A",
+                    Name = "TrackOut",
                     subName = "",
                     ZoneId = 1,
                     Spaces = 14,

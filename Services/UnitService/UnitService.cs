@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
+using Yard_Scan_API.Data.Entities;
 
 namespace Yard_Scan_API.Services.UnitService
 {
@@ -127,6 +129,8 @@ namespace Yard_Scan_API.Services.UnitService
                 }
                 else
                 {
+                    unit.ZoneId = 1;
+                    unit.SubZoneId = 1;
                     unit.Space = null;
                     unit.TrackOutDate = DateTime.Now;
 
@@ -144,14 +148,14 @@ namespace Yard_Scan_API.Services.UnitService
 
             return response;
         }
-        public async Task<ServiceResponse<GetUnitDto>> UpdateCommentUnit(int id, UpdateCommentUnitDto updatedUnit)
+        public async Task<ServiceResponse<GetUnitDto>> UpdateCommentUnit(int UnitId, UpdateCommentUnitDto updatedUnit)
         {
             var response = new ServiceResponse<GetUnitDto>();
 
             try
             {
                 var unitEntity = await _context.Units
-                    .FirstOrDefaultAsync(z => z.Id == id);
+                    .FirstOrDefaultAsync(z => z.UnitId == UnitId);
 
                 var Unit = _mapper.Map(updatedUnit, unitEntity);
 
@@ -168,14 +172,14 @@ namespace Yard_Scan_API.Services.UnitService
             return response;
         }
 
-        public async Task<ServiceResponse<GetUnitDto>> UpdateStatusUnit(int id, UpdateStatusUnitDto updatedSUnit)
+        public async Task<ServiceResponse<GetUnitDto>> UpdateStatusUnit(int UnitId, UpdateStatusUnitDto updatedSUnit)
         {
             var response = new ServiceResponse<GetUnitDto>();
 
             try
             {
                 var unitEntity = await _context.Units
-                    .FirstOrDefaultAsync(z => z.Id == id);
+                    .FirstOrDefaultAsync(z => z.UnitId == UnitId);
 
                 var Unit = _mapper.Map(updatedSUnit, unitEntity);
 
@@ -202,9 +206,67 @@ namespace Yard_Scan_API.Services.UnitService
             return response;
         }
 
-        public Task<ServiceResponse<List<GetUnitDto>>> MultipleUnitTrackIn(TrackInUnitDto newTrackInUnit)
+        // public Task<ServiceResponse<List<GetUnitDto>>> MultipleUnitTrackIn(TrackInUnitDto newTrackInUnit)
+        //{
+        //  throw new NotImplementedException();
+        //}
+
+        public async Task<ServiceResponse<List<GetUnitDto>>> MultipleUnitTrackIn(TrackInUnitDto[] trackInUnits)
         {
-            throw new NotImplementedException();
+            var response = new ServiceResponse<List<GetUnitDto>>();
+
+            foreach (var unit in trackInUnits)
+            {
+                await UnitTrackIn(unit);
+            }
+
+            await _context.SaveChangesAsync();
+            response.Message = "Units tracked in successfully!";
+            return response;
+        }
+
+        public async Task<ServiceResponse<List<GetUnitDto>>> MultipleUnitTrackOut(int trackOutType, int id)
+        {
+            var response = new ServiceResponse<List<GetUnitDto>>();
+
+            if (trackOutType == 1)
+            {
+                var units = _context.Units
+                    .Where(u => u.ZoneId == id)
+                    .ToList();
+
+                foreach (var unit in units)
+                {
+                    unit.ZoneId = 1;
+                    unit.SubZoneId = 1;
+                    unit.Space = null;
+                    unit.TrackOutDate = DateTime.Now;
+                }
+
+                response.Data = _mapper.Map<List<GetUnitDto>>(units);
+                response.Message = "Units tracked out successfully!";
+            }
+            else if (trackOutType == 2)
+            {
+                var units = _context.Units
+                    .Where(u => u.SubZoneId == id)
+                    .ToList();
+
+                foreach (var unit in units)
+                {
+                    unit.ZoneId = 1;
+                    unit.SubZoneId = 1;
+                    unit.Space = null;
+                    unit.TrackOutDate = DateTime.Now;
+                }
+
+                response.Data = _mapper.Map<List<GetUnitDto>>(units);
+                response.Message = "Units tracked out successfully!";
+            }
+
+            await _context.SaveChangesAsync();
+
+            return response;
         }
     }
 }

@@ -33,12 +33,15 @@ GO
 		u.OpenDefects as [OpenDefects],
 		rw.Descripcion as [Part],
 		rw.ETA as [ETA],
-	    yu.Comment as [Comment]
+	    yu.Comment as [Comment],
+		yu.Prio as [Prio]
 	from dbo.Units yu
 	join dbo.unit_on_inspect u on u.UnitId = yu.UnitId
 	join [10.91.116.139].[INACSLOG].[dbo].[LOG] il on u.Serial collate SQL_Latin1_General_CP1_CI_AS = il.[VIN] collate SQL_Latin1_General_CP1_CI_AS
 	left join [10.91.42.20].[ReWork].[dbo].[ReworkActiveVINs] rw on u.Serial collate SQL_Latin1_General_CP1_CI_AS = rw.[VIN] collate SQL_Latin1_General_CP1_CI_AS
+
 GO";
+            migrationBuilder.Sql(sql);
 
         }
 

@@ -22,5 +22,6 @@
         public string? OpenDefects { get; set; }
         public string? Part { get; set; }
         public string? ETA { get; set; }
+        public int Prio { get; set; }
     }
 }
